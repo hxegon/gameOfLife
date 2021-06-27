@@ -12,7 +12,7 @@ windowPos :: (Int, Int)
 windowPos = (100, 100)
 
 window :: Display
-window = InWindow "Conway's game of life" windowPos windowSize
+window = InWindow "Conway's game of life" windowSize windowPos
 
 bgColor :: Color
 bgColor = black
