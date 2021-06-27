@@ -25,3 +25,4 @@ main :: IO ()
 -- TODO: Take argument for grid side length and steps per second
 main =
      play window bgColor stepsPerSecond initialLife lifeToPicture eventHandler stepLife
+     where initialLife = mkInitialLife $ cycle [Alive, Dead, Dead, Alive, Alive, Dead]
