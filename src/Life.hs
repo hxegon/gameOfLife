@@ -19,7 +19,7 @@ mkGrid :: Int -> [Cell] -> Grid
 mkGrid sideLen cells =
   array gridBounds $ zip (range gridBounds) cells
   where
-    gridBounds = ((0, 0), (sideLen, sideLen))
+    gridBounds = ((0, 0), (sideLen-1, sideLen-1))
 
 mkInitialLife :: [Cell] -> Life
 mkInitialLife cells =
