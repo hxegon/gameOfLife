@@ -1,5 +1,5 @@
 module Logic where
 
-eventHandler = undefined
+eventHandler _ l = l
 
-stepLife = undefined
+stepLife _ l = l
