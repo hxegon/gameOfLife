@@ -25,13 +25,17 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Life
+      Logic
+      Rendering
   other-modules:
       Paths_gameOfLife
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      array
+    , base >=4.7 && <5
+    , gloss
   default-language: Haskell2010
 
 executable gameOfLife-exe
@@ -42,8 +46,10 @@ executable gameOfLife-exe
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      array
+    , base >=4.7 && <5
     , gameOfLife
+    , gloss
   default-language: Haskell2010
 
 test-suite gameOfLife-test
@@ -55,6 +61,8 @@ test-suite gameOfLife-test
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      array
+    , base >=4.7 && <5
     , gameOfLife
+    , gloss
   default-language: Haskell2010
