@@ -24,5 +24,6 @@ main :: IO ()
 -- FixMe: Initial Life should get some kind of input to decide what initial cells are on
 -- TODO: Take argument for grid side length and steps per second
 main =
-     play window bgColor stepsPerSecond initialLife lifeToPicture eventHandler stepLife
-     where initialLife = mkInitialLife $ cycle [Alive, Dead, Dead, Alive, Alive, Dead]
+  play window bgColor stepsPerSecond initialLife lifeAsPicture eventHandler stepLife
+  where
+    initialLife = mkInitialLife $ cycle [Alive, Dead, Alive, Dead]
