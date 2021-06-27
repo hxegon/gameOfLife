@@ -1,5 +1,3 @@
 module Logic where
 
-eventHandler _ l = l
-
-stepLife _ l = l
+stepLife _ _ l = l
