@@ -16,6 +16,9 @@ data Life = Life
   }
   deriving (Show, Eq)
 
+intAsCell :: Int -> Cell
+intAsCell n = if even n then Alive else Dead
+
 mkGrid :: Int -> [Cell] -> Grid
 mkGrid sideLen cells =
   array gridBounds $ zip (range gridBounds) cells
