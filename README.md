@@ -13,6 +13,7 @@ The Naive implementation uses 110 - 130% CPU on my 2015 Macbook Pro (2.9 Ghz 2 c
 
 ## TODO
 - [x] Naive implementation
+- [x] Random initial grid state
 - [ ] Profile for Naive implementation
 - [ ] Testing
 - [ ] CLI option: Steps per second

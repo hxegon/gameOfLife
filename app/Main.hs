@@ -1,9 +1,11 @@
 module Main where
 
+import Control.Monad (replicateM)
 import Graphics.Gloss
 import Life
 import Logic
 import Rendering
+import System.Random (randomRIO)
 
 windowSize :: (Int, Int)
 windowSize = (640, 640)
@@ -21,9 +23,8 @@ stepsPerSecond :: Int
 stepsPerSecond = 15
 
 main :: IO ()
--- FixMe: Initial Life should get some kind of input to decide what initial cells are on
 -- TODO: Take argument for grid side length and steps per second
-main =
-  simulate window bgColor stepsPerSecond initialLife lifeAsPicture stepLife
-  where
-    initialLife = mkInitialLife $ cycle [Alive, Dead, Alive, Dead]
+main = do
+  rInts <- replicateM (gridSideLen * gridSideLen) (randomRIO (0, 1))
+  let initLife = mkInitialLife $ map intAsCell rInts
+  simulate window bgColor stepsPerSecond initLife lifeAsPicture stepLife
