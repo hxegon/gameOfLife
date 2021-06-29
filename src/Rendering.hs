@@ -8,32 +8,33 @@ import Life
 size :: (Int, Int)
 size = (640, 640)
 
-cellSize :: (Float, Float)
-cellSize =
-  ( (fromIntegral . fst $ size) / fromIntegral gridSideLen,
-    (fromIntegral . snd $ size) / fromIntegral gridSideLen
-  )
-
-cellAsPicture :: Cell -> Picture
-cellAsPicture cell = color (cellColor cell) $ rectangleSolid height width
+cellAsPicture :: (Float, Float) -> Cell -> Picture
+cellAsPicture cellSize cell = color (cellColor cell) $ rectangleSolid height width
   where
     (height, width) = cellSize
     cellColor Dead = greyN 0.15
     cellColor Alive = greyN 0.85
 
 -- FixMe: Rotates everything by -90.0°
-snapPictureToCoord :: Picture -> (Int, Int) -> Picture
-snapPictureToCoord p (row, col) = translate x y p
+snapPictureToCoord :: (Float, Float) -> Picture -> (Int, Int) -> Picture
+snapPictureToCoord (width, height) p (row, col) = translate x y p
   where
-    (width, height) = cellSize
     x = (fromIntegral row * width) + (width * 0.5)
     y = (fromIntegral col * height) + (height * 0.5)
 
 gridAsPicture :: Grid -> Picture
 gridAsPicture grid =
   pictures $
-    map (\(coord, cell) -> snapPictureToCoord (cellAsPicture cell) coord) $
-      assocs grid
+    map
+      (\(coord, cell) ->
+          snapPictureToCoord cellSize (cellAsPicture cellSize cell) coord)
+      $ assocs grid
+  where
+    gridSideLen = snd . snd $ bounds grid
+    cellSize =
+      ( (fromIntegral . fst $ size) / fromIntegral gridSideLen,
+        (fromIntegral . snd $ size) / fromIntegral gridSideLen
+      )
 
 -- TODO: Render generation
 lifeAsPicture :: Life -> Picture

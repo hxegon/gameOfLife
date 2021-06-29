@@ -1,11 +1,14 @@
 module Main where
 
-import Control.Monad (replicateM)
+import Control.Monad (replicateM, when)
+import Data.Maybe (mapMaybe)
 import Graphics.Gloss
 import Life
 import Logic
 import Rendering
+import System.Environment (getArgs)
 import System.Random (randomRIO)
+import Text.Read (readMaybe)
 
 windowSize :: (Int, Int)
 windowSize = (640, 640)
@@ -19,12 +22,22 @@ window = InWindow "Conway's game of life" windowSize windowPos
 bgColor :: Color
 bgColor = black
 
-stepsPerSecond :: Int
-stepsPerSecond = 15
-
 main :: IO ()
 -- TODO: Take argument for grid side length and steps per second
 main = do
-  rInts <- replicateM (gridSideLen * gridSideLen) (randomRIO (0, 1))
-  let initLife = mkInitialLife $ map intAsCell rInts
+  args <- getArgs
+  when (length args /= 2) $ error "Usage: stack run <side length> <steps per second>"
+
+  let intArgs = mapMaybe readMaybe args
+  when (length intArgs /= 2) $ error "Arguments weren't valid numbers"
+  -- putStrLn $ (unwords . map show) intArgs
+
+  -- Seems like a gross way to do this, but intArgs is guaranteed to have 2
+  -- elements at this point so, works for now
+  let stepsPerSecond = intArgs !! 0
+  let gridsize = intArgs !! 1
+
+  rInts <- replicateM (gridsize ^ 2) (randomRIO (0, 1))
+  let initLife = mkInitialLife gridsize $ map intAsCell rInts
+  print initLife
   simulate window bgColor stepsPerSecond initLife lifeAsPicture stepLife
