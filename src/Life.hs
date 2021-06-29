@@ -2,16 +2,12 @@ module Life where
 
 import Data.Array (Array, Ix (range), array)
 
-gridSideLen :: Int
-gridSideLen = 20
-
 data Cell = Alive | Dead deriving (Show, Eq)
 
 type Grid = Array (Int, Int) Cell
 
 data Life = Life
-  { --
-    lifeGrid :: Grid,
+  { lifeGrid :: Grid,
     generation :: Integer
   }
   deriving (Show, Eq)
@@ -25,9 +21,9 @@ mkGrid sideLen cells =
   where
     gridBounds = ((0, 0), (sideLen -1, sideLen -1))
 
-mkInitialLife :: [Cell] -> Life
-mkInitialLife cells =
+mkInitialLife :: Int -> [Cell] -> Life
+mkInitialLife gridsize cells =
   Life
-    { lifeGrid = mkGrid gridSideLen cells,
+    { lifeGrid = mkGrid gridsize cells,
       generation = 0
     }
