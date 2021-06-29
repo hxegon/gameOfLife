@@ -30,7 +30,6 @@ main = do
 
   let intArgs = mapMaybe readMaybe args
   when (length intArgs /= 2) $ error "Arguments weren't valid numbers"
-  -- putStrLn $ (unwords . map show) intArgs
 
   -- Seems like a gross way to do this, but intArgs is guaranteed to have 2
   -- elements at this point so, works for now
@@ -39,5 +38,4 @@ main = do
 
   rInts <- replicateM (gridsize ^ 2) (randomRIO (0, 1))
   let initLife = mkInitialLife gridsize $ map intAsCell rInts
-  print initLife
   simulate window bgColor stepsPerSecond initLife lifeAsPicture stepLife
